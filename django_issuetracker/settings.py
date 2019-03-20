@@ -26,7 +26,13 @@ SECRET_KEY = '$)$)k73ikw&gy=kydd#f+*dwxe57f7ceuu&lz=0q1b7j+5ji56'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'issuetracker-angela80.c9users.io''simple-issuestracker.herokuapp.com']
+ALLOWED_HOSTS =[os.environ.get('C9_HOSTNAME'),
+                os.environ.get('HOSTNAME')]
+#[ 'issuetracker-angela80.c9users.io''simple-issuestracker.herokuapp.com']
+
+host = os.environ.get('SITE_HOST')
+if host:
+    ALLOWED_HOSTS.append(host)
 
 
 
@@ -82,7 +88,8 @@ WSGI_APPLICATION = 'django_issuetracker.wsgi.application'
  #       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
-DATABASES={'default':dj_database_url.parse("postgres://yfggnygrodtiur:65f5845fb4684ba23b285eb15c9896a42e3a7eea64a4cf036948532721307aba@ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/dfc1lm8i9r3so8")}
+DATABASES={'default':dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+#("postgres://yfggnygrodtiur:65f5845fb4684ba23b285eb15c9896a42e3a7eea64a4cf036948532721307aba@ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/dfc1lm8i9r3so8")}
 
 
 
