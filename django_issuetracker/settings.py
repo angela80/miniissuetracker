@@ -30,8 +30,6 @@ ALLOWED_HOSTS = [ 'issuetracker-angela80.c9users.io''simple-issuestracker.heroku
 
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
