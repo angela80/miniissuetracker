@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import dj_database_url
 
+if os.environ.get('DEVELOPMENT'):
+    development=True
+else:
+    development=False
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +28,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$)$)k73ikw&gy=kydd#f+*dwxe57f7ceuu&lz=0q1b7j+5ji56'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if development:
+   DEBUG = True
 
 ALLOWED_HOSTS =[os.environ.get('C9_HOSTNAME'),
                 os.environ.get('HOSTNAME')]
@@ -82,13 +87,15 @@ WSGI_APPLICATION = 'django_issuetracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-#DATABASES = {
- #   'default': {
- #       'ENGINE': 'django.db.backends.sqlite3',
- #       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-DATABASES={'default':dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+if development:
+ DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+else:
+ DATABASES={'default':dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 #("postgres://yfggnygrodtiur:65f5845fb4684ba23b285eb15c9896a42e3a7eea64a4cf036948532721307aba@ec2-46-137-113-157.eu-west-1.compute.amazonaws.com:5432/dfc1lm8i9r3so8")}
 
 
